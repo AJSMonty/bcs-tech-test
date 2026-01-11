@@ -1,0 +1,22 @@
+<div class="page">
+  <label>
+    Segments:
+    <input
+      type="number"
+      min="2"
+      max="24"
+      [value]="state.segmentCount()"
+      (input)="onSegmentInput($any($event.target).value)"
+      [disabled]="state.isSpinning()"
+    />
+  </label>
+  <div class="wheel-wrap">
+    <div #wheel class="wheel">
+      <app-roulette-wheel [segments]="state.segments()" [radius]="160" />
+    </div>
+    <div class="pointer" aria-hidden="true"></div>
+  </div>
+
+  <button (click)="spin('random')" [disabled]="state.isSpinning()">Spin random</button>
+  <button (click)="spin('fixed')" [disabled]="state.isSpinning()">Spin fixed</button>
+</div>

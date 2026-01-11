@@ -1,0 +1,18 @@
+<div class="page">
+  <h2>Result</h2>
+
+  @if (state.result()) { @let r = state.result();
+  <div>
+    <p>You landed on:</p>
+    <h3>{{ r?.segment?.label }}</h3>
+
+    <button routerLink="/game">Spin again</button>
+    <button routerLink="/" (click)="state.reset()">Restart</button>
+  </div>
+  } @else {
+  <div>
+    <p>No result found — please spin the wheel first.</p>
+    <button routerLink="/">Back to welcome</button>
+  </div>
+  }
+</div>

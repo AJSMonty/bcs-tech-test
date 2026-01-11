@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.page {
+  text-align: center;
+  padding: 2rem;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  background: linear-gradient(rgb(19, 47, 19), rgb(0, 41, 0));
+}
