@@ -85,7 +85,7 @@ export class RouletteWheelComponent {
         labelX,
         labelY,
         labelRotate,
-        colorClass: i % 2 === 0 ? 'segment--red' : 'segment--black',
+        colorClass: i === 0 ? 'segment--green' : i % 2 === 0 ? 'segment--red' : 'segment--black',
       };
     });
   });

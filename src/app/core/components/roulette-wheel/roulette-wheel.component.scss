@@ -26,9 +26,13 @@
   fill: url(#rouletteBlack);
 }
 
+.segment--green {
+  fill: url(#rouletteGreen);
+}
+
 .segment-label {
   fill: #fff; // white text
-  font-size: 24px;
+  font-size: 14px;
   font-weight: bold;
   user-select: none;
   pointer-events: none;

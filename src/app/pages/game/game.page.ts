@@ -13,39 +13,60 @@ import { RouletteWheelComponent } from '../../core/components/roulette-wheel/rou
 export class GamePage {
   readonly state = inject(GameStateService);
   private readonly router = inject(Router);
+  landOnLabel = '0';
+
+  onLandOnInput(value: string) {
+    this.landOnLabel = value.trim();
+  }
+
+  private indexForLabel(label: string): number | null {
+    const segments = this.state.segments();
+    const idx = segments.findIndex((s) => s.label === label);
+    return idx >= 0 ? idx : null;
+  }
+
+  get fixedIndex(): number | null {
+    const idx = this.state.segments().findIndex((s) => s.label === this.landOnLabel);
+    return idx >= 0 ? idx : null;
+  }
 
   @ViewChild('wheel', { static: true }) wheelRef!: ElementRef<HTMLElement>;
-
-  onSegmentInput(value: string) {
-    this.state.setSegmentCount(Number(value));
-  }
 
   spin(mode: 'random' | 'fixed') {
     this.state.startSpin(mode);
 
     const segments = this.state.segments();
-    const index =
-      mode === 'fixed'
-        ? Math.min(2, segments.length - 1)
-        : Math.floor(Math.random() * segments.length);
+
+    let index: number;
+
+    if (mode === 'fixed') {
+      const idx = this.indexForLabel(this.landOnLabel);
+      index = idx ?? 0;
+    } else {
+      index = Math.floor(Math.random() * segments.length);
+    }
 
     const rotation = computeTargetRotation({
-      segments: this.state.segments().length,
+      segments: segments.length,
       index,
       fullSpins: 6,
       pointerOffsetDeg: 0,
     });
 
     const el = this.wheelRef.nativeElement;
+    const pointer = document.querySelector('.pointer') as HTMLElement | null;
+    pointer?.classList.add('pointer--active');
+
+    el.style.transition = 'none';
+    void el.offsetWidth;
 
     el.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.2, 1)';
-    this.wheelRef.nativeElement.style.transform = `rotate(${rotation}deg)`;
+    el.style.transform = `rotate(${rotation}deg)`;
 
     const onEnd = (e: TransitionEvent) => {
       if (e.propertyName !== 'transform') return;
-
       el.removeEventListener('transitionend', onEnd);
-
+      pointer?.classList.remove('pointer--active');
       setTimeout(() => {
         this.state.setResult(index);
         this.router.navigateByUrl('/result');

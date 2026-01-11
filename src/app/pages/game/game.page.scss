@@ -8,3 +8,50 @@
 .page {
   text-align: center;
 }
+
+.pointer {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.pointer-flap {
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 22px solid #d4af37;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+
+  transform: rotate(180deg);
+  transform-origin: 50% 6px;
+}
+
+.pointer-flap::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #8c6b1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.pointer--active .pointer-flap {
+  animation: tick 120ms infinite ease-in-out;
+}
+
+@keyframes tick {
+  0%,
+  100% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(174deg);
+  }
+}

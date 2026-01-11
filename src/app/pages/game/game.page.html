@@ -1,29 +1,45 @@
 <div class="page">
-  <label>
-    Segments:
-    <input
-      type="number"
-      min="2"
-      max="24"
-      class="mt-8"
-      [value]="state.segmentCount()"
-      (input)="onSegmentInput($any($event.target).value)"
-      [disabled]="state.isSpinning()"
-    />
-  </label>
   <div class="wheel-wrap mt-8">
     <div #wheel class="wheel">
       <app-roulette-wheel [segments]="state.segments()" [radius]="160" />
     </div>
-    <div class="pointer" aria-hidden="true"></div>
+    <div class="pointer" aria-hidden="true">
+      <div class="pointer-flap"></div>
+    </div>
   </div>
 
-  <div class="flex justify-center">
-    <button class="m-4 min-w-40" (click)="spin('random')" [disabled]="state.isSpinning()">
+  <div class="flex flex-col gap-4 justify-center items-center mt-8">
+    <button class="min-w-48 max-w-48" (click)="spin('random')" [disabled]="state.isSpinning()">
       Random Spin
     </button>
-    <button class="m-4 min-w-40" (click)="spin('fixed')" [disabled]="state.isSpinning()">
-      Fixed Spin
-    </button>
+    <p>- or -</p>
+    <div class="grow">
+      <label class="flex flex-col items-center gap-2">
+        <span class="text-zinc-900 font-bold">Land on (fixed spin)</span>
+        <input
+          type="number"
+          min="0"
+          max="36"
+          class="px-3 py-2 rounded border w-32"
+          [value]="landOnLabel"
+          (input)="onLandOnInput($any($event.target).value)"
+          [disabled]="state.isSpinning()"
+        />
+      </label>
+      @if (fixedIndex === null && landOnLabel !== '') {
+      <p class="text-sm opacity-80 mt-2 text-red-500">
+        That number isn’t on this wheel, try a number between 0-36
+      </p>
+      } @else {
+      <p class="text-sm mt-2 text-zinc-800">Pick a number between 0 and 36</p>
+      }
+      <button
+        class="min-w-48 grow max-w48"
+        (click)="spin('fixed')"
+        [disabled]="state.isSpinning() || fixedIndex === null"
+      >
+        Fixed Spin
+      </button>
+    </div>
   </div>
 </div>
