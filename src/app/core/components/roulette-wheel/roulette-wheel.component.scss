@@ -19,26 +19,26 @@
 }
 
 .segment--red {
-  fill: #c62828;
+  fill: url(#rouletteRed);
 }
 
 .segment--black {
-  fill: #111;
+  fill: url(#rouletteBlack);
 }
 
 .segment-label {
   fill: #fff; // white text
   font-size: 24px;
+  font-weight: bold;
   user-select: none;
   pointer-events: none;
 }
 
 .rim {
   fill: none;
-  stroke: rgb(255, 225, 0);
   stroke-width: 3;
 }
 
 .hub {
-  fill: rgb(255, 225, 0);
+  fill: url(#goldHighlight);
 }

@@ -1,0 +1,11 @@
+$default-font: 'Cinzel', Tahoma, Geneva, Verdana, sans-serif;
+
+body,
+button {
+  font-family: $default-font;
+  color: #000;
+}
+
+h1 {
+  font-size: 4rem;
+}

@@ -8,14 +8,17 @@ type Result = {
   index: number;
 };
 
+const DEFAULT_SEGMENT_NUMBER = 12;
+const MAX_SEGMENT_NUMBER = 24;
+
 @Injectable({ providedIn: 'root' })
 export class GameStateService {
-  readonly segmentCount = signal<number>(6);
+  readonly segmentCount = signal<number>(DEFAULT_SEGMENT_NUMBER);
 
   readonly segments = computed<Segment[]>(() => {
     const n = this.segmentCount();
 
-    const safe = Math.max(2, Math.min(24, Math.floor(n)));
+    const safe = Math.max(2, Math.min(MAX_SEGMENT_NUMBER, Math.floor(n)));
 
     return Array.from({ length: safe }, (_, i) => ({
       id: String(i),
@@ -33,7 +36,7 @@ export class GameStateService {
   setSegmentCount(n: number) {
     if (this.isSpinning()) return;
 
-    const safe = Math.max(2, Math.min(24, Math.floor(n)));
+    const safe = Math.max(2, Math.min(MAX_SEGMENT_NUMBER, Math.floor(n)));
     this.segmentCount.set(safe);
     this.result.set(null);
   }
@@ -56,6 +59,6 @@ export class GameStateService {
     this.mode.set(null);
     this.isSpinning.set(false);
     this.result.set(null);
-    this.segmentCount.set(6);
+    this.segmentCount.set(DEFAULT_SEGMENT_NUMBER);
   }
 }

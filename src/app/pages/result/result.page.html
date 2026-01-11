@@ -1,13 +1,14 @@
 <div class="page">
-  <h2>Result</h2>
+  <h1>Result</h1>
 
   @if (state.result()) { @let r = state.result();
   <div>
-    <p>You landed on:</p>
-    <h3>{{ r?.segment?.label }}</h3>
-
-    <button routerLink="/game">Spin again</button>
-    <button routerLink="/" (click)="state.reset()">Restart</button>
+    <h3>You landed on:</h3>
+    <h1>{{ r?.segment?.label }}</h1>
+    <div class="flex justify-center">
+      <button class="m-4 min-w-40" routerLink="/game">Spin again</button>
+      <button class="m-4 min-w-40" routerLink="/" (click)="state.reset()">Restart</button>
+    </div>
   </div>
   } @else {
   <div>

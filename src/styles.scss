@@ -1,15 +1,8 @@
+@use './app/styles/typography';
+@use './app/styles//buttons';
+@use './app/styles/layout';
+@use './app/styles/inputs';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.page {
-  text-align: center;
-  padding: 2rem;
-}
-
-body {
-  min-height: 100vh;
-  min-width: 100vw;
-  margin: 0;
-  background: linear-gradient(rgb(19, 47, 19), rgb(0, 41, 0));
-}

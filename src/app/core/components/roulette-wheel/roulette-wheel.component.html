@@ -1,12 +1,52 @@
-<svg
-  class="wheel-svg"
-  [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
-  role="img"
-  aria-label="Roulette wheel"
->
+<svg class="wheel-svg" [attr.viewBox]="'0 0 ' + size() + ' ' + size()" aria-label="Roulette wheel">
+  <defs>
+    <linearGradient id="goldRimGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff6cc" />
+      <stop offset="25%" stop-color="#e6c75f" />
+      <stop offset="50%" stop-color="#c9a227" />
+      <stop offset="75%" stop-color="#e6c75f" />
+      <stop offset="100%" stop-color="#8c6b1f" />
+    </linearGradient>
+
+    <radialGradient id="goldHighlight" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25" />
+    </radialGradient>
+
+    <linearGradient id="rouletteRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b6b" />
+      <stop offset="40%" stop-color="#c62828" />
+      <stop offset="100%" stop-color="#8e0000" />
+    </linearGradient>
+
+    <linearGradient id="rouletteBlack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#444" />
+      <stop offset="40%" stop-color="#111" />
+      <stop offset="100%" stop-color="#000" />
+    </linearGradient>
+
+    <radialGradient id="pocketGloss" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25" />
+    </radialGradient>
+
+    <radialGradient id="goldHubGradient" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fff3b0" />
+      <stop offset="50%" stop-color="#e6c75f" />
+      <stop offset="100%" stop-color="#7a5a18" />
+    </radialGradient>
+
+    <radialGradient id="goldHubHighlight" cx="30%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25" />
+    </radialGradient>
+  </defs>
   <g class="wheel-rotor">
     @for (s of built(); track s.id) {
     <path class="segment" [class]="s.colorClass" [attr.d]="s.pathD" />
+    <path fill="url(#pocketGloss)" [attr.d]="s.pathD" />
 
     <text
       class="segment-label"
@@ -21,17 +61,40 @@
     }
 
     <circle
-      class="hub"
+      fill="url(#goldHubGradient)"
       [attr.cx]="radiusValue()"
       [attr.cy]="radiusValue()"
-      [attr.r]="radiusValue() * 0.12"
+      [attr.r]="radiusValue() * 0.22"
+    />
+
+    <circle
+      fill="url(#goldHubHighlight)"
+      [attr.cx]="radiusValue()"
+      [attr.cy]="radiusValue()"
+      [attr.r]="radiusValue() * 0.22"
+    />
+
+    <circle
+      fill="#3a2a0a"
+      [attr.cx]="radiusValue()"
+      [attr.cy]="radiusValue()"
+      [attr.r]="radiusValue() * 0.03"
     />
   </g>
 
   <circle
     class="rim"
+    stroke="url(#goldRimGradient)"
     [attr.cx]="radiusValue()"
     [attr.cy]="radiusValue()"
     [attr.r]="radiusValue() - 2"
+  />
+  <circle
+    fill="none"
+    stroke="url(#goldHighlight)"
+    stroke-width="6"
+    [attr.cx]="radiusValue()"
+    [attr.cy]="radiusValue()"
+    [attr.r]="radiusValue() - 3"
   />
 </svg>

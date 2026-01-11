@@ -1,0 +1,35 @@
+.page {
+  text-align: center;
+  padding: 2rem;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body.card-table {
+  position: relative;
+  isolation: isolate; // 🔑 creates a new stacking context
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.25)),
+    linear-gradient(135deg, #0f5e3c, #0b4d32 40%, #083d29);
+}
+
+/* Felt noise layer */
+body.card-table::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  filter: url(#feltNoise);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* App content layer */
+app-root {
+  position: relative;
+  z-index: 1;
+}
