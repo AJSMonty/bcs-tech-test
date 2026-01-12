@@ -58,7 +58,7 @@ export class GamePage {
 
     const el = this.wheelRef.nativeElement;
     const pointer = document.querySelector('.pointer') as HTMLElement | null;
-    pointer?.classList.add('pointer--active');
+    pointer?.classList.add('pointer-active');
 
     el.style.transition = 'none';
     void el.offsetWidth;
@@ -69,7 +69,7 @@ export class GamePage {
     const onEnd = (e: TransitionEvent) => {
       if (e.propertyName !== 'transform') return;
       el.removeEventListener('transitionend', onEnd);
-      pointer?.classList.remove('pointer--active');
+      pointer?.classList.remove('pointer-active');
       setTimeout(() => {
         this.state.setResult(index);
         this.router.navigateByUrl('/result');

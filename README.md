@@ -1,59 +1,128 @@
-# BcsTechTest
+# Roulette — BCS Tech Test
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+A small Angular application that implements a roulette wheel with both random and deterministic spins, built with a focus on clean architecture, predictable state management, and polished UI interactions.
 
-## Development server
+The goal of this project is not just to “make it work”, but to demonstrate considered frontend decisions around state, rendering, animation, and testing.
 
-To start a local development server, run:
+## ✨ Features
 
-```bash
-ng serve
-```
+- 🎰 European roulette wheel (real number order, colours, and layout)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- 🔁 Random and fixed spins
 
-## Code scaffolding
+  - Random spins use a cryptographically secure RNG
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+  - Fixed spins deterministically land on a chosen number
 
-```bash
-ng generate component component-name
-```
+- 🎯 SVG-based wheel rendering
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+  - Programmatic segment geometry
 
-```bash
-ng generate --help
-```
+  - Smooth CSS-driven rotation
 
-## Building
+  - Static pointer / ticker for result alignment
 
-To build the project run:
+- 🧠 Signal-based state management
 
-```bash
-ng build
-```
+  - Centralised game state
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+  - Derived/computed values for UI
 
-## Running unit tests
+- 🛡 Route guard to prevent accessing results without a completed spin
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- 🧪 Unit tests with Vitest
 
-```bash
-ng test
-```
+  - Component tests
 
-## Running end-to-end tests
+  - Service tests
 
-For end-to-end (e2e) testing, run:
+  - Guard tests
 
-```bash
-ng e2e
-```
+- 🎨 Subtle UI polish
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+  - Pressed button interactions
 
-## Additional Resources
+  - Small reward messages for special outcomes
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  - Minimal, casino-inspired styling
+
+## 🛠 Tech Stack
+
+- Angular 21
+
+- Standalone components
+
+- Angular Signals
+
+- SVG + CSS animations
+
+- TailwindCSS for some styling
+
+- Vitest for unit testing
+
+- Prettier for formatting
+
+## 🚀 Getting Started
+
+### Install dependencies
+
+`npm install`
+
+### Run the development server
+
+`ng serve`
+
+Then open:
+👉 http://localhost:4200
+
+The app will reload automatically as you make changes.
+
+### 🧪 Running Tests
+
+Unit tests are written using Vitest and can be run with:
+
+`ng test`
+
+Tests cover:
+
+- core game state behaviour
+
+- route guards
+
+- component interaction logic
+
+### 🏗 Build
+
+To create a production build:
+
+`ng build`
+
+The compiled output will be placed in the dist/ directory.
+
+### 🧩 Project Structure (high level)
+
+src/
+├─ app/
+│ ├─ core/
+│ │ ├─ components/ # Reusable UI components (roulette wheel)
+│ │ ├─ services/ # Game state + logic
+│ │ └─ guards/ # Route guards
+│ └─ pages/
+│ ├─ welcome/
+│ ├─ game/
+│ └─ result/
+
+## 📝 Notes
+
+- Game logic is intentionally separated from rendering logic.
+
+- The roulette wheel component is purely presentational.
+
+- The game state service acts as the single source of truth.
+
+- Animations are handled via CSS transitions rather than JS-heavy logic.
+
+- Tests focus on behaviour, not implementation details.
+
+Thanks for taking the time to review this submission.
+If you have any questions about specific implementation choices, I’d be happy to talk them through.

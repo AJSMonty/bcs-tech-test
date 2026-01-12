@@ -28,11 +28,12 @@
   transform-origin: 50% 6px;
 }
 
-.pointer-flap::after {
+.pointer-stand {
   content: '';
   position: absolute;
   left: 50%;
-  top: 18px;
+  top: -16px;
+  z-index: 10;
   transform: translateX(-50%);
   width: 10px;
   height: 10px;
@@ -41,7 +42,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-.pointer--active .pointer-flap {
+.pointer-active .pointer-flap {
   animation: tick 120ms infinite ease-in-out;
 }
 

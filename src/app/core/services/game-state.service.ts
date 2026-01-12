@@ -3,7 +3,7 @@ import { Segment } from '../models/segment';
 
 export type SpinMode = 'random' | 'fixed';
 
-type Result = {
+export type Result = {
   segment: Segment;
   index: number;
 };

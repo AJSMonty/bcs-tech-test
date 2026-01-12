@@ -11,12 +11,11 @@ body {
 
 body.card-table {
   position: relative;
-  isolation: isolate; // 🔑 creates a new stacking context
+  isolation: isolate;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.25)),
     linear-gradient(135deg, #0f5e3c, #0b4d32 40%, #083d29);
 }
 
-/* Felt noise layer */
 body.card-table::before {
   content: '';
   position: absolute;
@@ -28,7 +27,6 @@ body.card-table::before {
   z-index: 0;
 }
 
-/* App content layer */
 app-root {
   position: relative;
   z-index: 1;

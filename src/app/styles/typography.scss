@@ -23,7 +23,11 @@ h1 {
   }
   90% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.02);
+  }
+  95% {
+    opacity: 1;
+    transform: scale(0.98);
   }
   100% {
     transform: scale(1);
