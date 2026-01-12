@@ -107,11 +107,13 @@ src/
 │ ├─ core/
 │ │ ├─ components/ # Reusable UI components (roulette wheel)
 │ │ ├─ services/ # Game state + logic
+│ │ ├─ models/ # Any shared types/interfaces
 │ │ └─ guards/ # Route guards
-│ └─ pages/
-│ ├─ welcome/
-│ ├─ game/
-│ └─ result/
+│ ├─ pages/
+│ │ ├─ welcome/
+│ │ ├─ game/
+│ │ └─ result/
+│ └─ styles/ # Separated global styles
 ```
 
 ## 📝 Notes
