@@ -101,6 +101,7 @@ The compiled output will be placed in the dist/ directory.
 
 ### 🧩 Project Structure (high level)
 
+```
 src/
 ├─ app/
 │ ├─ core/
@@ -111,6 +112,7 @@ src/
 │ ├─ welcome/
 │ ├─ game/
 │ └─ result/
+```
 
 ## 📝 Notes
 
