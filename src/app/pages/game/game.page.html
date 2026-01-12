@@ -1,5 +1,20 @@
 <div class="page">
-  <div class="wheel-wrap mt-8">
+  <label class="flex flex-col items-center gap-2">
+    <h3 class="text-zinc-900 font-bold mb-0">Customise wheel</h3>
+    <div>
+      <input
+        type="number"
+        min="2"
+        max="37"
+        class="w-8"
+        [value]="state.segmentCount()"
+        (input)="onSegmentInput($any($event.target).value)"
+        [disabled]="state.isSpinning()"
+      />
+      <span class="ml-2 text-sm">segments (max 37)</span>
+    </div>
+  </label>
+  <div class="wheel-wrap mt-8 relative">
     <div #wheel class="wheel">
       <app-roulette-wheel [segments]="state.segments()" [radius]="160" />
     </div>
@@ -8,19 +23,19 @@
     </div>
   </div>
 
-  <div class="flex flex-col gap-4 justify-center items-center mt-8">
+  <div class="flex flex-col gap-2 justify-center items-center mt-8">
     <button class="min-w-48 max-w-48" (click)="spin('random')" [disabled]="state.isSpinning()">
-      Random Spin
+      Random spin 🎲
     </button>
-    <p>- or -</p>
+    <p class="text-zinc-800">- or -</p>
     <div class="grow">
       <label class="flex flex-col items-center gap-2">
-        <span class="text-zinc-900 font-bold">Land on (fixed spin)</span>
+        <h3 class="text-zinc-900 font-bold mb-0 mt-0">Pick a number to land on</h3>
         <input
           type="number"
           min="0"
-          max="36"
-          class="px-3 py-2 rounded border w-32"
+          [max]="state.segmentCount() - 1"
+          class="w-8"
           [value]="landOnLabel"
           (input)="onLandOnInput($any($event.target).value)"
           [disabled]="state.isSpinning()"
@@ -28,17 +43,17 @@
       </label>
       @if (fixedIndex === null && landOnLabel !== '') {
       <p class="text-sm opacity-80 mt-2 text-red-500">
-        That number isn’t on this wheel, try a number between 0-36
+        That number isn’t on this wheel, try a number between 0 and {{ state.segmentCount() - 1 }}
       </p>
       } @else {
-      <p class="text-sm mt-2 text-zinc-800">Pick a number between 0 and 36</p>
+      <p class="text-sm mt-2 text-zinc-800">Must be between 0 and {{ state.segmentCount() - 1 }}</p>
       }
       <button
-        class="min-w-48 grow max-w48"
+        class="min-w-48 grow max-w48 bg-slate-700 text-slate-200"
         (click)="spin('fixed')"
         [disabled]="state.isSpinning() || fixedIndex === null"
       >
-        Fixed Spin
+        Fixed Spin 🔒
       </button>
     </div>
   </div>

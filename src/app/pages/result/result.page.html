@@ -1,13 +1,19 @@
 <div class="page">
-  <h1>Result</h1>
+  <h1 class="text-zinc-900">Result</h1>
 
   @if (state.result()) { @let r = state.result();
   <div>
-    <h3>You landed on:</h3>
-    <h1>{{ r?.segment?.label }}</h1>
-    <div class="flex justify-center">
+    <h3 class="mt-32 text-zinc-900">You landed on:</h3>
+    <h1 class="text-zinc-900 fade-and-grow">{{ r?.segment?.label }}</h1>
+    <div class="flex justify-center mt-32">
       <button class="m-4 min-w-40" routerLink="/game">Spin again</button>
-      <button class="m-4 min-w-40" routerLink="/" (click)="state.reset()">Start over</button>
+      <button
+        class="m-4 min-w-40 bg-slate-700 text-slate-200"
+        routerLink="/"
+        (click)="state.reset()"
+      >
+        Start over
+      </button>
     </div>
   </div>
   } @else {

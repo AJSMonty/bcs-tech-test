@@ -13,11 +13,8 @@ import { RouletteWheelComponent } from '../../core/components/roulette-wheel/rou
 export class GamePage {
   readonly state = inject(GameStateService);
   private readonly router = inject(Router);
+  @ViewChild('wheel', { static: true }) wheelRef!: ElementRef<HTMLElement>;
   landOnLabel = '0';
-
-  onLandOnInput(value: string) {
-    this.landOnLabel = value.trim();
-  }
 
   private indexForLabel(label: string): number | null {
     const segments = this.state.segments();
@@ -30,7 +27,13 @@ export class GamePage {
     return idx >= 0 ? idx : null;
   }
 
-  @ViewChild('wheel', { static: true }) wheelRef!: ElementRef<HTMLElement>;
+  onSegmentInput(value: number) {
+    this.state.setSegmentCount(value);
+  }
+
+  onLandOnInput(value: string) {
+    this.landOnLabel = value.trim();
+  }
 
   spin(mode: 'random' | 'fixed') {
     this.state.startSpin(mode);

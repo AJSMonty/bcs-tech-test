@@ -6,4 +6,17 @@ button {
   font-weight: bold;
   box-shadow: black 1px 2px 4px 0px;
   cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.2, 1.6, 0.4, 1), box-shadow 120ms ease;
+}
+
+button:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+button:disabled {
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
 }
