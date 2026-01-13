@@ -1,5 +1,6 @@
 import { Component, Input, computed, signal } from '@angular/core';
 import { BuiltSegment, Segment } from '../../models/segment';
+import { DEFAULT_LABEL_RADIUS_FACTOR, DEFAULT_RADIUS } from '../../constants/roulette-constants';
 
 @Component({
   standalone: true,
@@ -9,8 +10,8 @@ import { BuiltSegment, Segment } from '../../models/segment';
 })
 export class RouletteWheelComponent {
   private readonly _segments = signal<Segment[]>([]);
-  private readonly _radius = signal<number>(160);
-  private readonly _labelRadiusFactor = signal<number>(0.85);
+  private readonly _radius = signal<number>(DEFAULT_RADIUS);
+  private readonly _labelRadiusFactor = signal<number>(DEFAULT_LABEL_RADIUS_FACTOR);
   readonly radiusValue = computed(() => this._radius());
 
   @Input({ required: true })
@@ -20,62 +21,61 @@ export class RouletteWheelComponent {
 
   @Input()
   set radius(value: number | null | undefined) {
-    this._radius.set(typeof value === 'number' ? value : 160);
+    this._radius.set(typeof value === 'number' ? value : DEFAULT_RADIUS);
   }
 
   @Input()
   set labelRadiusFactor(value: number | null | undefined) {
-    this._labelRadiusFactor.set(typeof value === 'number' ? value : 0.85);
+    this._labelRadiusFactor.set(typeof value === 'number' ? value : DEFAULT_LABEL_RADIUS_FACTOR);
   }
-
-  @Input() rotationDeg = 0;
 
   readonly size = computed(() => this._radius() * 2);
 
-  readonly built = computed<BuiltSegment[]>(() => {
-    const segs = this._segments();
-    const n = segs.length || 1;
+  readonly builtWheel = computed<BuiltSegment[]>(() => {
+    const builtSegments = this._segments();
+    const numberOfBuiltSegmentSlices = builtSegments.length || 1;
 
-    const r = this._radius();
-    const cx = r;
-    const cy = r;
+    const radius = this._radius();
+    const cx = radius;
+    const cy = radius;
 
-    const slice = (2 * Math.PI) / n;
+    const segmentSliceSize = (2 * Math.PI) / numberOfBuiltSegmentSlices;
     const startOffset = -Math.PI / 2;
 
-    return segs.map((s, i) => {
-      const a0 = startOffset + i * slice;
-      const a1 = a0 + slice;
+    return builtSegments.map((segment, index) => {
+      const startAngle = startOffset + index * segmentSliceSize;
+      const endAngle = startAngle + segmentSliceSize;
 
-      const x0 = cx + r * Math.cos(a0);
-      const y0 = cy + r * Math.sin(a0);
-      const x1 = cx + r * Math.cos(a1);
-      const y1 = cy + r * Math.sin(a1);
+      const x0 = cx + radius * Math.cos(startAngle);
+      const y0 = cy + radius * Math.sin(startAngle);
+      const x1 = cx + radius * Math.cos(endAngle);
+      const y1 = cy + radius * Math.sin(endAngle);
 
-      const largeArc = slice > Math.PI ? 1 : 0;
+      const largeArc = segmentSliceSize > Math.PI ? 1 : 0;
 
-      const pathD = [
+      const segmentSlicePath = [
         `M ${cx} ${cy}`,
         `L ${x0} ${y0}`,
-        `A ${r} ${r} 0 ${largeArc} 1 ${x1} ${y1}`,
+        `A ${radius} ${radius} 0 ${largeArc} 1 ${x1} ${y1}`,
         'Z',
       ].join(' ');
 
-      const mid = (a0 + a1) / 2;
-      const lr = r * this._labelRadiusFactor();
+      const midSliceAngle = (startAngle + endAngle) / 2;
+      const labelRadius = radius * this._labelRadiusFactor();
 
-      const labelX = cx + lr * Math.cos(mid);
-      const labelY = cy + lr * Math.sin(mid);
-      const labelRotate = (mid * 180) / Math.PI + 90;
+      const labelX = cx + labelRadius * Math.cos(midSliceAngle);
+      const labelY = cy + labelRadius * Math.sin(midSliceAngle);
+      const labelRotate = (midSliceAngle * 180) / Math.PI + 90;
 
       return {
-        id: s.id,
-        label: s.label,
-        pathD,
+        id: segment.id,
+        label: segment.label,
+        segmentSlicePath,
         labelX,
         labelY,
         labelRotate,
-        colorClass: i === 0 ? 'segment-green' : i % 2 === 0 ? 'segment-red' : 'segment-black',
+        colorClass:
+          index === 0 ? 'segment-green' : index % 2 === 0 ? 'segment-red' : 'segment-black',
       };
     });
   });

@@ -5,18 +5,18 @@
       <input
         type="number"
         min="2"
-        max="37"
+        max="{{ maxSegments }}"
         class="w-8"
         [value]="state.segmentCount()"
         (input)="onSegmentInput($any($event.target).value)"
         [disabled]="state.isSpinning()"
       />
-      <span class="ml-2 text-sm">segments (max 37)</span>
+      <span class="ml-2 text-sm">segments (max {{ maxSegments }})</span>
     </div>
   </label>
   <div class="wheel-wrap mt-8 relative">
     <div #wheel class="wheel">
-      <app-roulette-wheel [segments]="state.segments()" [radius]="160" />
+      <app-roulette-wheel [segments]="state.segments()" [radius]="200" />
     </div>
     <div class="pointer" aria-hidden="true">
       <div class="pointer-stand"></div>

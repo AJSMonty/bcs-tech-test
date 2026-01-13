@@ -50,9 +50,9 @@
     </linearGradient>
   </defs>
   <g class="wheel-rotor">
-    @for (s of built(); track s.id) {
-    <path class="segment" [class]="s.colorClass" [attr.d]="s.pathD" />
-    <path fill="url(#pocketGloss)" [attr.d]="s.pathD" />
+    @for (s of builtWheel(); track s.id) {
+    <path class="segment" [class]="s.colorClass" [attr.d]="s.segmentSlicePath" />
+    <path fill="url(#pocketGloss)" [attr.d]="s.segmentSlicePath" />
 
     <text
       class="segment-label"

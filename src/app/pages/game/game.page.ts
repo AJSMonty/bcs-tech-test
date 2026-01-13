@@ -4,6 +4,8 @@ import { GameStateService } from '../../core/services/game-state.service';
 import { RouletteWheelComponent } from '../../core/components/roulette-wheel/roulette-wheel.component';
 import { randomIndex } from '../../core/generators/random-number-generator';
 import { SpinMode } from '../../core/models/game-state';
+import { MAX_SEGMENT_NUMBER, NUMBER_OF_FULL_SPINS } from '../../core/constants/roulette-constants';
+import { computeTargetRotation } from '../../core/generators/compute-rotation';
 
 @Component({
   standalone: true,
@@ -16,6 +18,7 @@ export class GamePage {
   readonly state = inject(GameStateService);
   private readonly router = inject(Router);
   @ViewChild('wheel', { static: true }) wheelRef!: ElementRef<HTMLElement>;
+  maxSegments = MAX_SEGMENT_NUMBER;
   landOnLabel = '0';
 
   private indexForLabel(label: string): number | null {
@@ -54,7 +57,7 @@ export class GamePage {
     const rotation = computeTargetRotation({
       segments: segments.length,
       index,
-      fullSpins: 6,
+      fullSpins: NUMBER_OF_FULL_SPINS,
       pointerOffsetDeg: 0,
     });
 
@@ -80,16 +83,4 @@ export class GamePage {
 
     el.addEventListener('transitionend', onEnd);
   }
-}
-
-function computeTargetRotation(opts: {
-  segments: number;
-  index: number;
-  fullSpins: number;
-  pointerOffsetDeg: number;
-}) {
-  const slice = 360 / opts.segments;
-  const targetCenter = opts.index * slice + slice / 2;
-
-  return opts.fullSpins * 360 - targetCenter + opts.pointerOffsetDeg;
 }
