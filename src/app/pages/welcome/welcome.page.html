@@ -1,6 +1,11 @@
 <div class="page">
-  <h1 class="text-zinc-900">Roulette</h1>
-  <h2 class="text-zinc-900 mt-32">A simple game of chance</h2>
+  <h1 class="text-zinc-900 mb-4">Roulette</h1>
+  <div class="max-w-80 ml-auto mr-auto">
+    <div class="wheel teaser-spin">
+      <app-roulette-wheel [segments]="state.segments()" [radius]="200" />
+    </div>
+  </div>
+  <h2 class="text-zinc-900 mt-12">A simple game of chance</h2>
   <p class="text-zinc-800">Choose a spin mode and watch the wheel decide</p>
-  <button class="mt-48 min-w-60" routerLink="/game">Start spinning 🎰</button>
+  <button class="mt-12 min-w-60" routerLink="/game">Start spinning 🎰</button>
 </div>
