@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameStateService } from '../../core/services/game-state.service';
 import { RouletteWheelComponent } from '../../core/components/roulette-wheel/roulette-wheel.component';
+import { randomIndex } from '../../core/generators/random-number-generator';
+import { SpinMode } from '../../core/models/game-state';
 
 @Component({
   standalone: true,
@@ -35,7 +37,7 @@ export class GamePage {
     this.landOnLabel = value.trim();
   }
 
-  spin(mode: 'random' | 'fixed') {
+  spin(mode: SpinMode) {
     this.state.startSpin(mode);
 
     const segments = this.state.segments();
@@ -46,7 +48,7 @@ export class GamePage {
       const idx = this.indexForLabel(this.landOnLabel);
       index = idx ?? 0;
     } else {
-      index = Math.floor(Math.random() * segments.length);
+      index = Math.floor(randomIndex(segments.length));
     }
 
     const rotation = computeTargetRotation({

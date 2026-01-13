@@ -1,0 +1,16 @@
+$black: #000;
+$white: #fff;
+
+$black-faded: rgba(0, 0, 0, 0.35);
+
+$card-table-gradient: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.08),
+    rgba(0, 0, 0, 0.25)
+  ),
+  linear-gradient(135deg, #0f5e3c, #0b4d32 40%, #083d29);
+
+$card-table-noise: rgba(0, 0, 0, 0.1);
+
+$roulette-segment-stroke: rgba(243, 251, 128, 0.534);
+$roulette-segment-fill-default: rgba(0, 0, 0, 0.06);

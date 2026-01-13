@@ -20,7 +20,6 @@ describe('GameStateService', () => {
     const segs = service.segments();
     expect(segs).toHaveLength(37);
 
-    // Spot-check the real roulette order (enough to catch regressions)
     expect(segs[0].label).toBe('0');
     expect(segs[1].label).toBe('32');
     expect(segs[2].label).toBe('15');
@@ -29,16 +28,15 @@ describe('GameStateService', () => {
   });
 
   it('setSegmentCount clamps between 2 and 37 and clears result', () => {
-    // Create a result first
     service.setResult(1);
     expect(service.hasResult()).toBe(true);
 
-    service.setSegmentCount(1); // too low -> clamp to 2
+    service.setSegmentCount(1);
     expect(service.segmentCount()).toBe(2);
     expect(service.segments()).toHaveLength(2);
     expect(service.hasResult()).toBe(false);
 
-    service.setSegmentCount(999); // too high -> clamp to 37
+    service.setSegmentCount(999);
     expect(service.segmentCount()).toBe(37);
     expect(service.segments()).toHaveLength(37);
   });
@@ -50,7 +48,7 @@ describe('GameStateService', () => {
     const before = service.segmentCount();
     service.setSegmentCount(2);
 
-    expect(service.segmentCount()).toBe(before); // unchanged
+    expect(service.segmentCount()).toBe(before);
   });
 
   it('startSpin sets mode, isSpinning, and clears result', () => {
@@ -70,7 +68,7 @@ describe('GameStateService', () => {
     expect(service.isSpinning()).toBe(true);
 
     const segs = service.segments();
-    service.setResult(999); // too high -> clamp to last
+    service.setResult(999);
 
     expect(service.isSpinning()).toBe(false);
     expect(service.hasResult()).toBe(true);
@@ -78,7 +76,6 @@ describe('GameStateService', () => {
     const r = service.result();
     expect(r).not.toBeNull();
 
-    // index clamped to last element
     expect(r!.index).toBe(segs.length - 1);
     expect(r!.segment.label).toBe(segs[segs.length - 1].label);
 

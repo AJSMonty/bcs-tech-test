@@ -1,0 +1,27 @@
+@keyframes tick {
+  0%,
+  100% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(174deg);
+  }
+}
+
+@keyframes fade-and-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  95% {
+    opacity: 1;
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

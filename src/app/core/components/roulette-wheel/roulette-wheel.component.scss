@@ -1,3 +1,5 @@
+@use '../../../styles/colors';
+
 :host {
   display: block;
 }
@@ -7,7 +9,7 @@
   width: 100%;
   height: auto;
   border-radius: 50%;
-  box-shadow: black 1px 2px 4px 0px;
+  box-shadow: colors.$black 1px 2px 4px 0px;
 }
 
 .wheel-rotor {
@@ -15,25 +17,25 @@
 }
 
 .segment {
-  stroke: rgba(158, 213, 19, 0.2);
-  stroke-width: 2;
-  fill: rgba(0, 0, 0, 0.06);
+  stroke: colors.$roulette-segment-stroke;
+  stroke-width: 1;
+  fill: colors.$roulette-segment-fill-default;
 }
 
-.segment--red {
+.segment-red {
   fill: url(#rouletteRed);
 }
 
-.segment--black {
+.segment-black {
   fill: url(#rouletteBlack);
 }
 
-.segment--green {
+.segment-green {
   fill: url(#rouletteGreen);
 }
 
 .segment-label {
-  fill: #fff; // white text
+  fill: colors.$white;
   font-size: 14px;
   font-weight: bold;
   user-select: none;

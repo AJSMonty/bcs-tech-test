@@ -1,10 +1,13 @@
+@use './animations';
+@use './colors';
+
 $default-font: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
 $heading-font: 'Cinzel', Tahoma, Geneva, Verdana, sans-serif;
 
 body,
 button {
   font-family: $default-font;
-  color: #000;
+  color: colors.$black;
 }
 
 h1 {
@@ -14,22 +17,4 @@ h1 {
 
 .fade-and-grow {
   animation: fade-and-grow 1s ease-in-out;
-}
-
-@keyframes fade-and-grow {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  90% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-  95% {
-    opacity: 1;
-    transform: scale(0.98);
-  }
-  100% {
-    transform: scale(1);
-  }
 }

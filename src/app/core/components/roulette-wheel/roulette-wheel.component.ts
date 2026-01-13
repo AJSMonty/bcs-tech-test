@@ -1,15 +1,5 @@
 import { Component, Input, computed, signal } from '@angular/core';
-import { Segment } from '../../models/segment';
-
-type BuiltSegment = {
-  id: string;
-  label: string;
-  pathD: string;
-  labelX: number;
-  labelY: number;
-  labelRotate: number;
-  colorClass: string;
-};
+import { BuiltSegment, Segment } from '../../models/segment';
 
 @Component({
   standalone: true,
@@ -85,7 +75,7 @@ export class RouletteWheelComponent {
         labelX,
         labelY,
         labelRotate,
-        colorClass: i === 0 ? 'segment--green' : i % 2 === 0 ? 'segment--red' : 'segment--black',
+        colorClass: i === 0 ? 'segment-green' : i % 2 === 0 ? 'segment-red' : 'segment-black',
       };
     });
   });

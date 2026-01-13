@@ -24,7 +24,6 @@ The goal of this project is not just to “make it work”, but to demonstrate c
   - Guard tests
 - 🎨 Subtle UI polish
   - Pressed button interactions
-  - Small reward messages for special outcomes
   - Minimal, casino-inspired styling
 
 ## 🛠 Tech Stack
@@ -37,6 +36,9 @@ The goal of this project is not just to “make it work”, but to demonstrate c
 - Vitest for unit testing
 
 ## 🚀 Getting Started
+
+If you don't have Angular CLI installed
+`npm install -g @angular/cli`
 
 ### Install dependencies
 
@@ -78,6 +80,8 @@ src/
 │ ├─ core/
 │ │ ├─ components/ # Reusable UI components (roulette wheel)
 │ │ ├─ services/ # Game state + logic
+│ │ ├─ constants/ # Any constants (roulette order)
+│ │ ├─ generators/ # Any generators (random number generator)
 │ │ ├─ models/ # Any shared types/interfaces
 │ │ └─ guards/ # Route guards
 │ ├─ pages/

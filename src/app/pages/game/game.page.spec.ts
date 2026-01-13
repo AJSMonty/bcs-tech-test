@@ -24,7 +24,6 @@ describe('GamePage (Vitest)', () => {
       navigateByUrl: vi.fn(),
     };
 
-    // Keep segments predictable
     state = {
       segments: vi.fn().mockReturnValue([
         { id: '0', label: '0', color: 'green' },
@@ -33,11 +32,9 @@ describe('GamePage (Vitest)', () => {
         { id: '19', label: '19', color: 'red' },
       ]),
       startSpin: vi.fn(),
-      setResult: vi.fn(),
-
-      // ✅ add these
       isSpinning: vi.fn().mockReturnValue(false),
       segmentCount: vi.fn().mockReturnValue(37),
+      setResult: vi.fn(),
       setSegmentCount: vi.fn(),
     };
 
@@ -52,12 +49,11 @@ describe('GamePage (Vitest)', () => {
     fixture = TestBed.createComponent(GamePage);
     component = fixture.componentInstance;
 
-    // Your component queries document.querySelector('.pointer')
     const pointer = document.createElement('div');
     pointer.className = 'pointer';
     document.body.appendChild(pointer);
 
-    fixture.detectChanges(); // resolves @ViewChild
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 
@@ -87,48 +83,53 @@ describe('GamePage (Vitest)', () => {
   it('spin(fixed) lands on correct index and navigates after transition end + 1s', () => {
     vi.useFakeTimers();
 
-    component.landOnLabel = '15'; // should map to index 2
+    component.landOnLabel = '15';
     component.spin('fixed');
 
     expect(state.startSpin).toHaveBeenCalledWith('fixed');
 
     const pointer = document.querySelector('.pointer') as HTMLElement;
-    expect(pointer.classList.contains('pointer--active')).toBe(true);
+    expect(pointer.classList.contains('pointer-active')).toBe(true);
 
     const wheelEl = component.wheelRef.nativeElement;
 
-    // JSDOM doesn't reliably provide TransitionEvent; fake propertyName
     const ev = new Event('transitionend') as any;
     Object.defineProperty(ev, 'propertyName', { value: 'transform' });
 
     wheelEl.dispatchEvent(ev);
 
-    // component waits 1s before setResult + navigate
     vi.advanceTimersByTime(1000);
 
     expect(state.setResult).toHaveBeenCalledWith(2);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/result');
-    expect(pointer.classList.contains('pointer--active')).toBe(false);
+    expect(pointer.classList.contains('pointer-active')).toBe(false);
   });
 
-  it('spin(random) uses Math.random deterministically in test', () => {
+  it('spin(random) uses crypto RNG deterministically in test', () => {
     vi.useFakeTimers();
-    vi.spyOn(Math, 'random').mockReturnValue(0.75); // floor(0.75 * 4) = 3
+
+    const cryptoObj = globalThis.crypto as Crypto;
+
+    const spy = vi
+      .spyOn(cryptoObj, 'getRandomValues')
+      .mockImplementation(<T extends ArrayBufferView>(arr: T) => {
+        (arr as unknown as Uint32Array)[0] = 3;
+        return arr;
+      });
 
     component.spin('random');
 
-    expect(state.startSpin).toHaveBeenCalledWith('random');
-
     const wheelEl = component.wheelRef.nativeElement;
-
     const ev = new Event('transitionend') as any;
     Object.defineProperty(ev, 'propertyName', { value: 'transform' });
-
     wheelEl.dispatchEvent(ev);
+
     vi.advanceTimersByTime(1000);
 
     expect(state.setResult).toHaveBeenCalledWith(3);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/result');
+
+    spy.mockRestore();
   });
 
   it('ignores transitionend events that are not for transform', () => {

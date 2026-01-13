@@ -1,3 +1,5 @@
+@use './colors';
+
 .page {
   text-align: center;
   padding: 2rem;
@@ -12,15 +14,14 @@ body {
 body.card-table {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.25)),
-    linear-gradient(135deg, #0f5e3c, #0b4d32 40%, #083d29);
+  background: colors.$card-table-gradient;
 }
 
 body.card-table::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: colors.$card-table-noise;
   filter: url(#feltNoise);
   opacity: 0.4;
   pointer-events: none;

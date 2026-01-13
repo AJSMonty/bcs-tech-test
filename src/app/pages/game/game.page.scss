@@ -1,3 +1,5 @@
+@use '../../styles/animations';
+
 .wheel {
   transition: transform 4s cubic-bezier(0.1, 0.8, 0.2, 1);
   max-width: 500px;
@@ -44,14 +46,4 @@
 
 .pointer-active .pointer-flap {
   animation: tick 120ms infinite ease-in-out;
-}
-
-@keyframes tick {
-  0%,
-  100% {
-    transform: rotate(180deg);
-  }
-  50% {
-    transform: rotate(174deg);
-  }
 }
