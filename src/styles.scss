@@ -1,7 +1,9 @@
+@use './app/styles/colors';
 @use './app/styles/typography';
 @use './app/styles//buttons';
 @use './app/styles/layout';
 @use './app/styles/inputs';
+@use './app/styles/animations';
 
 @tailwind base;
 @tailwind components;

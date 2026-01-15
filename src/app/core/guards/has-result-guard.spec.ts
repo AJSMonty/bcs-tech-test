@@ -9,7 +9,6 @@ describe('hasResultGuard', () => {
   let router: { parseUrl: ReturnType<typeof vi.fn> };
   let state: { hasResult: ReturnType<typeof vi.fn> };
 
-  // Minimal stubs just to satisfy the signature
   const route = {} as ActivatedRouteSnapshot;
   const routerState = {} as RouterStateSnapshot;
 
