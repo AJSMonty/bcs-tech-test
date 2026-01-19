@@ -32,9 +32,8 @@ export class GameStateService {
 
     if (safeRange === 37) return EUROPEAN_ORDER;
     return [
-      { id: '0', label: '0' },
-      ...Array.from({ length: safeRange - 1 }, (_, i) => {
-        const value = String(i + 1);
+      ...Array.from({ length: safeRange }, (_, i) => {
+        const value = String(i);
         return { id: value, label: value };
       }),
     ];

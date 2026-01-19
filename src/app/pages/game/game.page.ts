@@ -4,7 +4,11 @@ import { GameStateService } from '../../core/services/game-state.service';
 import { RouletteWheelComponent } from '../../core/components/roulette-wheel/roulette-wheel.component';
 import { randomIndex } from '../../core/generators/random-number-generator';
 import { SpinMode } from '../../core/models/game-state';
-import { MAX_SEGMENT_NUMBER, NUMBER_OF_FULL_SPINS } from '../../core/constants/roulette-constants';
+import {
+  DEFAULT_LAND_ON_LABEL,
+  MAX_SEGMENT_NUMBER,
+  NUMBER_OF_FULL_SPINS,
+} from '../../core/constants/roulette-constants';
 import { computeTargetRotation } from '../../core/generators/compute-rotation';
 
 @Component({
@@ -18,8 +22,10 @@ export class GamePage {
   readonly state = inject(GameStateService);
   private readonly router = inject(Router);
   @ViewChild('wheel', { static: true }) wheelRef!: ElementRef<HTMLElement>;
+  @ViewChild('pointer', { static: true }) pointerRef!: ElementRef<HTMLElement>;
+
   maxSegments = MAX_SEGMENT_NUMBER;
-  landOnLabel = '0';
+  landOnLabel = DEFAULT_LAND_ON_LABEL;
 
   private indexForLabel(label: string): number | null {
     const segments = this.state.segments();
@@ -62,7 +68,7 @@ export class GamePage {
     });
 
     const el = this.wheelRef.nativeElement;
-    const pointer = document.querySelector('.pointer') as HTMLElement | null;
+    const pointer = this.pointerRef.nativeElement;
     pointer?.classList.add('pointer-active');
 
     el.style.transition = 'none';

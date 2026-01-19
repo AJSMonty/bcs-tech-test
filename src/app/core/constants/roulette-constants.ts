@@ -44,6 +44,7 @@ export const DEFAULT_SEGMENT_NUMBER = 37;
 export const MAX_SEGMENT_NUMBER = 37;
 export const MIN_SEGMENT_NUMBER = 2;
 export const LOWEST_SAFE_RESULT = 0;
+export const DEFAULT_LAND_ON_LABEL = '0';
 
 export const DEFAULT_LABEL_RADIUS_FACTOR = 0.9;
 export const DEFAULT_RADIUS = 200;
