@@ -88,7 +88,7 @@ describe('GamePage (Vitest)', () => {
 
     expect(state.startSpin).toHaveBeenCalledWith('fixed');
 
-    const pointer = document.querySelector('.pointer') as HTMLElement;
+    const pointer = component.pointerRef.nativeElement;
     expect(pointer.classList.contains('pointer-active')).toBe(true);
 
     const wheelEl = component.wheelRef.nativeElement;
